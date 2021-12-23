@@ -58,16 +58,14 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## 代码生成
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+nest 提供的代码生成 cli 能减少写模板代码的工作
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+```
+# 最后一个参数 modules 表示模块所在目录
+npx nest g -h # 帮助
+npx nest g module user modules       # 生成 User 模块
+npx nest g controller user modules   # 生成 User 控制器
+npx nest g service user modules      # 生成 User Service
+```
