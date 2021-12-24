@@ -1,10 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { APP_GUARD, APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
+import { UserModule } from '@modules/user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import databaseConfig from 'config/database.config';
+import { TransformInterceptor } from '@common/transform.interceptor';
+import { AllExceptionsFilter } from '@common/exception.filter';
+import { RequestModule } from '@modules/request/request.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -18,8 +23,21 @@ import databaseConfig from 'config/database.config';
       inject: [ConfigService],
     }),
     UserModule,
+    RequestModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      // 异常过滤器，格式化错误输出
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
+    {
+      // 全局拦截器
+      provide: APP_INTERCEPTOR,
+      useClass: TransformInterceptor,
+    },
+  ],
 })
 export class AppModule {}

@@ -16,6 +16,12 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@modules/*": ["./src/modules/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@src/*": ["./src/*"],
+      "@common/*": ["./src/common/*"]
+    }
   }
 }
