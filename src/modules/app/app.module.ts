@@ -9,6 +9,7 @@ import databaseConfig from 'config/database.config';
 import { TransformInterceptor } from '@common/transform.interceptor';
 import { AllExceptionsFilter } from '@common/exception.filter';
 import { RequestModule } from '@modules/request/request.module';
+import { AuthModule } from '@modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { RequestModule } from '@modules/request/request.module';
     }),
     UserModule,
     RequestModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
