@@ -1,11 +1,29 @@
-import { Controller, Post, UseGuards, Request } from '@nestjs/common';
+import { UserDto } from '@modules/user/dto/user.dto';
+import {
+  Controller,
+  Post,
+  UseGuards,
+  Request,
+  Get,
+  Body,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-  @UseGuards(AuthGuard('local'))
+  constructor(private readonly authService: AuthService) {}
+
   @Post('login')
-  async login(@Request() req) {
+  login(@Body() userDto: UserDto) {
+    return this.authService.login(userDto.username, userDto.password);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('profile')
+  @ApiBearerAuth('token')
+  getProfile(@Request() req) {
     return req.user;
   }
 }

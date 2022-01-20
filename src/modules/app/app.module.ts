@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { UserModule } from '@modules/user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import databaseConfig from 'config/database.config';
+import jwtConfig from 'config/jwt.config';
 import { TransformInterceptor } from '@common/transform.interceptor';
 import { AllExceptionsFilter } from '@common/exception.filter';
 import { RequestModule } from '@modules/request/request.module';
@@ -15,7 +16,7 @@ import { AuthModule } from '@modules/auth/auth.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig],
+      load: [databaseConfig, jwtConfig],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
