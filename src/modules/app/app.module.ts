@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_GUARD, APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { AppController } from './app.controller';
@@ -11,7 +11,8 @@ import { TransformInterceptor } from '@common/transform.interceptor';
 import { AllExceptionsFilter } from '@common/exception.filter';
 import { RequestModule } from '@modules/request/request.module';
 import { AuthModule } from '@modules/auth/auth.module';
-
+import { ErrorException } from '@src/common/error.exception';
+import * as _ from 'lodash';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -40,6 +41,25 @@ import { AuthModule } from '@modules/auth/auth.module';
       // 全局拦截器
       provide: APP_INTERCEPTOR,
       useClass: TransformInterceptor,
+    },
+    {
+      // 全局参数校验 pipe
+      provide: APP_PIPE,
+      useFactory: () =>
+        new ValidationPipe({
+          transform: true,
+          // 自定义异常
+          exceptionFactory: (errors) =>
+            new ErrorException(
+              'INVALID_PARAMS',
+              '参数错误',
+              _.flatten(
+                errors
+                  .filter((item) => !!item.constraints)
+                  .map((item) => Object.values(item.constraints)),
+              ),
+            ),
+        }),
     },
   ],
 })
