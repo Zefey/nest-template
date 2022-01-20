@@ -69,3 +69,70 @@ npx nest g module user modules       # 生成 User 模块
 npx nest g controller user modules   # 生成 User 控制器
 npx nest g service user modules      # 生成 User Service
 ```
+
+### 控制器与服务
+
+controller 负责处理请求和响应，不会直接和数据层接触，而是调用一个或多个 service 去完成想要实现的业务功能。service 层与数据层进行交互，向上提供方法，service 的方法尽可能小，只完成一个功能。
+
+**参数校验**
+使用基于类的参数校验方式，并通过管道装饰器完成验证
+
+**获取 Jwt Payload**
+被 `@UseGuards(AuthGuard())` 装饰的控制器，代表需要 Jwt 校验，通过校验后，可以用 @Jwt() 注解拿到 Jwt 的 Payload
+
+```ts
+class LoginDto {
+  @IsString()
+  phone: string;
+  @IsString()
+  password: string;
+}
+@Controller()
+export class AppController {
+  ...
+  @UseGuards(AuthGuard())
+  @Post()
+  async getHello(@Body() body: IndexBodyDto, @Jwt() jwt: JwtPayload): Promise<any> {
+    ...
+    return jwt
+  }
+  ...
+}
+```
+
+### 错误/异常 (待定)
+
+全局范围添加了异常过滤器（src/common/allException.filter.ts），会拦截所有异常，格式化响应体。
+对于业务逻辑类异常，封装了 ErrorException 异常类，继承于框架自带的 HttpException。ErrorException 构造方法接受固定格式的错误码对象，错误码对象需要在 src/common/error.exception.ts 文件中集中定义。使用示例如下：
+
+```js
+// 业务逻辑中抛出异常
+throw new ErrorException('USER_NOT_FOUND', '用户不存在');
+```
+
+### 接口协议
+
+```js
+{
+  code: 0, // 0 或者空字符串则代表成功
+  msg: "成功",
+  data: {...},
+  t: 1594727565012,
+  traceID: '45c076e9-faf9-4f05-95f2-0e21eca615a8'
+}
+```
+
+### 日志
+
+#### 配置
+
+.env 中的 LOG_OUTPUT 可以配置日志输出方式，默认 console，支持 file
+
+#### 日志 ID
+
+基于 winston 的日志功能，并用 `nest-winston` 重新实现了 NestJs 自带的日志 Service，在不方便进行依赖注入的地方，也可以直接引用 `src/common/logger` 中的方法。
+了便于日志查找，同一个请求产生的多条日志都会生成相同的日志 ID（tractID）。
+
+### 路径别名
+
+见 `tsconfig.json`
