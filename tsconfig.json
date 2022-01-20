@@ -21,7 +21,8 @@
       "@modules/*": ["./src/modules/*"],
       "@utils/*": ["./src/utils/*"],
       "@src/*": ["./src/*"],
-      "@common/*": ["./src/common/*"]
+      "@common/*": ["./src/common/*"],
+      "@config/*": ["./config/*"]
     }
   }
 }
