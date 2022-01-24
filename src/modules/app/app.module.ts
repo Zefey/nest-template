@@ -13,6 +13,8 @@ import { RequestModule } from '@modules/request/request.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { ErrorException } from '@src/common/error.exception';
 import * as _ from 'lodash';
+import { FileModule } from '@modules/file/file.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -28,6 +30,7 @@ import * as _ from 'lodash';
     UserModule,
     RequestModule,
     AuthModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [
