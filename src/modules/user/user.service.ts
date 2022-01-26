@@ -20,7 +20,7 @@ export class UserService {
     });
 
     if (find) {
-      throw new ErrorException('USER_EXITED', '用户已存在');
+      throw new ErrorException(500, '用户已存在');
     }
     try {
       const user = new User();
@@ -28,9 +28,10 @@ export class UserService {
       user.password = userDto.password;
       user.create_time = new Date();
       user.update_time = new Date();
+      user.role = 'user';
       return this.usersRepository.save(user);
     } catch (error) {
-      throw new ErrorException('CREATE_USER_FAIL', '创建用户失败');
+      throw new ErrorException(500, '创建用户失败');
     }
   }
 

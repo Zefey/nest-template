@@ -12,6 +12,9 @@ export class User {
   password: string;
 
   @Column()
+  role: string;
+
+  @Column()
   create_time: Date;
 
   @Column()

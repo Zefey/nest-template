@@ -107,14 +107,14 @@ export class AppController {
 
 ```js
 // 业务逻辑中抛出异常
-throw new ErrorException('USER_NOT_FOUND', '用户不存在');
+throw new ErrorException(500, '登录失败');
 ```
 
 ### 接口协议
 
 ```js
 {
-  code: 0, // 0 或者空字符串则代表成功
+  code: 0,
   msg: "成功",
   data: {...},
   t: 1594727565012,
@@ -132,6 +132,22 @@ throw new ErrorException('USER_NOT_FOUND', '用户不存在');
 
 基于 winston 的日志功能，并用 `nest-winston` 重新实现了 NestJs 自带的日志 Service，在不方便进行依赖注入的地方，也可以直接引用 `src/common/logger` 中的方法。
 了便于日志查找，同一个请求产生的多条日志都会生成相同的日志 ID（tractID）。
+
+#### 权限控制 (RABC)
+
+RBAC（基于角色的权限控制）是企业软件常用的权限管理技术
+
+**API 鉴权使用方式**
+
+```ts
+@Post()
+@UseGuards(AuthGuard('jwt'), RolesGuard)
+@Roles(Role.Admin)
+@ApiBearerAuth()
+create(@Body() userDto: UserDto): Promise<User> {
+  return this.userService.create(userDto);
+}
+```
 
 ### 路径别名
 

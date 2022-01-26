@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '@modules/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import LoginDto from './dto/login.dto';
-import { User } from '@modules/user/user.entity';
 import { ErrorException } from '@src/common/error.exception';
+import { JwtPayload } from './auth.interface';
 @Injectable()
 export class AuthService {
   constructor(
@@ -11,24 +11,20 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.usersService.findOneByUsername(username);
-    if (user && user.password === password) {
-      return user;
-    } else {
-      throw new ErrorException('LOGIN_FAIL', '登录失败');
-    }
-  }
-
-  async login(loginDto: LoginDto): Promise<{ token: string; userInfo: User }> {
+  async login(loginDto: LoginDto): Promise<any> {
     const user = await this.usersService.findOneByUsername(loginDto.username);
     if (user && user.password === loginDto.password) {
+      const payload: JwtPayload = {
+        username: user.username,
+        id: user.id,
+        role: user.role,
+      };
       return {
-        token: this.jwtService.sign({ username: user.username, id: user.id }),
-        userInfo: user,
+        token: this.jwtService.sign(payload),
+        ...user,
       };
     } else {
-      throw new ErrorException('LOGIN_FAIL', '登录失败');
+      throw new ErrorException(500, '登录失败');
     }
   }
 

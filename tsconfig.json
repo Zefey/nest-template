@@ -22,6 +22,7 @@
       "@utils/*": ["./src/utils/*"],
       "@src/*": ["./src/*"],
       "@common/*": ["./src/common/*"],
+      "@enums/*": ["./src/enums/*"],
       "@config/*": ["./config/*"]
     }
   }

@@ -14,7 +14,7 @@ import { AuthModule } from '@modules/auth/auth.module';
 import { ErrorException } from '@src/common/error.exception';
 import * as _ from 'lodash';
 import { FileModule } from '@modules/file/file.module';
-
+import { RolesGuard } from '@modules/auth/roles.guard';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -54,7 +54,7 @@ import { FileModule } from '@modules/file/file.module';
           // 自定义异常
           exceptionFactory: (errors) =>
             new ErrorException(
-              'INVALID_PARAMS',
+              400,
               '参数错误',
               _.flatten(
                 errors
@@ -64,6 +64,11 @@ import { FileModule } from '@modules/file/file.module';
             ),
         }),
     },
+    // {
+    //   // 全局注册权限守卫
+    //   provide: APP_GUARD,
+    //   useClass: RolesGuard,
+    // },
   ],
 })
 export class AppModule {}
