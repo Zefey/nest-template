@@ -15,6 +15,9 @@ export class User {
   role: string;
 
   @Column()
+  email: string;
+
+  @Column()
   create_time: Date;
 
   @Column()

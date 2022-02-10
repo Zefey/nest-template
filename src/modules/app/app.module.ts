@@ -1,7 +1,12 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { APP_GUARD, APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
-import { AppController } from './app.controller';
+import {
+  // APP_GUARD,
+  APP_FILTER,
+  APP_INTERCEPTOR,
+  APP_PIPE,
+} from '@nestjs/core';
+// import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from '@modules/user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -14,7 +19,7 @@ import { AuthModule } from '@modules/auth/auth.module';
 import { ErrorException } from '@src/common/error.exception';
 import * as _ from 'lodash';
 import { FileModule } from '@modules/file/file.module';
-import { RolesGuard } from '@modules/auth/roles.guard';
+// import { RolesGuard } from '@modules/auth/roles.guard';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -27,12 +32,12 @@ import { RolesGuard } from '@modules/auth/roles.guard';
         configService.get('database'),
       inject: [ConfigService],
     }),
+    AuthModule,
     UserModule,
     RequestModule,
-    AuthModule,
     FileModule,
   ],
-  controllers: [AppController],
+  // controllers: [AppController],
   providers: [
     AppService,
     {

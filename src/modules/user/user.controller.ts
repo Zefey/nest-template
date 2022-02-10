@@ -28,11 +28,17 @@ export class UserController {
   }
 
   @Get()
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.Admin)
+  @ApiBearerAuth()
   findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(Role.Admin)
+  @ApiBearerAuth()
   findOne(@Param('id') id: string): Promise<User> {
     return this.userService.findOne(id);
   }

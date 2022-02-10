@@ -26,9 +26,10 @@ export class UserService {
       const user = new User();
       user.username = userDto.username;
       user.password = userDto.password;
+      user.role = userDto.role ?? 'user';
+      user.email = userDto.email ?? '';
       user.create_time = new Date();
       user.update_time = new Date();
-      user.role = 'user';
       return this.usersRepository.save(user);
     } catch (error) {
       throw new ErrorException(500, '创建用户失败');
