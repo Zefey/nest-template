@@ -6,6 +6,7 @@ import { JwtStrategy } from './jwt.strategy';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { CacheModule } from '@modules/cache/cache.module';
 @Module({
   imports: [
     UserModule,
@@ -15,6 +16,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory: (configService: ConfigService) => configService.get('jwt'),
       inject: [ConfigService],
     }),
+    CacheModule,
   ],
   providers: [AuthService, JwtStrategy],
   exports: [AuthService],

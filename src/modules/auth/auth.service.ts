@@ -4,11 +4,13 @@ import { JwtService } from '@nestjs/jwt';
 import LoginDto from './dto/login.dto';
 import { ErrorException } from '@src/common/error.exception';
 import { JwtPayload } from './auth.interface';
+import { RedisService } from '@modules/cache/redis.service';
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UserService,
     private readonly jwtService: JwtService,
+    private readonly redisService: RedisService,
   ) {}
 
   async login(loginDto: LoginDto): Promise<any> {
@@ -19,12 +21,24 @@ export class AuthService {
         id: user.id,
         role: user.role,
       };
+      const key = `jwt_${user.id}_${user.username}`;
+      const token = this.jwtService.sign(payload);
+      // redis 缓存token
+      this.redisService.set(key, `Bearer ${token}`);
       return {
-        token: this.jwtService.sign(payload),
+        token,
         ...user,
       };
     } else {
       throw new ErrorException(500, '登录失败');
+    }
+  }
+
+  async logout(data: JwtPayload): Promise<any> {
+    const key = `jwt_${data.id}_${data.username}`;
+    const isExists = await this.redisService.exists(key);
+    if (isExists) {
+      this.redisService.del(key);
     }
   }
 

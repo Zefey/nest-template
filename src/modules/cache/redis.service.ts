@@ -25,14 +25,18 @@ export class RedisService {
   }
 
   async get(key: string) {
-    return this.command('GET', key);
+    return await this.command('GET', key);
   }
 
   async set<T = any>(key: string, value: T) {
-    return this.command('SET', key, value);
+    return await this.command('SET', key, value);
   }
 
   async exists(key: string) {
-    return this.command('EXISTS', key);
+    return await this.command('EXISTS', key);
+  }
+
+  async del(key: string) {
+    return await this.command('DEL', key);
   }
 }

@@ -78,7 +78,7 @@ controller 负责处理请求和响应，不会直接和数据层接触，而是
 使用基于类的参数校验方式，并通过管道装饰器完成验证
 
 **获取 Jwt Payload**
-被 `@UseGuards(AuthGuard('jwt'))` 装饰的控制器，代表需要 Jwt 校验，通过校验后，可以用 @Jwt() 注解拿到 Jwt 的 Payload
+被 `@UseGuards(JwtAuthGuard)` 装饰的控制器，代表需要 Jwt 校验，通过校验后，可以用 @Jwt() 注解拿到 Jwt 的 Payload
 
 ```ts
 class LoginDto {
@@ -93,7 +93,7 @@ class LoginDto {
 @Controller()
 export class AppController {
   ...
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Post()
   async getHello(@Jwt() jwt: JwtPayload): Promise<any> {
     ...
@@ -144,7 +144,7 @@ RBAC（基于角色的权限控制）是企业软件常用的权限管理技术
 
 ```ts
 @Post()
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(Role.Admin)
 @ApiBearerAuth()
 create(@Body() userDto: UserDto): Promise<User> {
