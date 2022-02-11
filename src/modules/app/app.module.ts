@@ -6,12 +6,12 @@ import {
   APP_INTERCEPTOR,
   APP_PIPE,
 } from '@nestjs/core';
-// import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from '@modules/user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import databaseConfig from '@config/database.config';
 import jwtConfig from '@config/jwt.config';
+import redis from '@config/redis.config';
 import { TransformInterceptor } from '@common/transform.interceptor';
 import { AllExceptionsFilter } from '@common/exception.filter';
 import { RequestModule } from '@modules/request/request.module';
@@ -20,11 +20,12 @@ import { ErrorException } from '@src/common/error.exception';
 import * as _ from 'lodash';
 import { FileModule } from '@modules/file/file.module';
 // import { RolesGuard } from '@modules/auth/roles.guard';
+import { CacheModule } from '@modules/cache/cache.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig, jwtConfig],
+      load: [databaseConfig, jwtConfig, redis],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -36,8 +37,8 @@ import { FileModule } from '@modules/file/file.module';
     UserModule,
     RequestModule,
     FileModule,
+    CacheModule,
   ],
-  // controllers: [AppController],
   providers: [
     AppService,
     {

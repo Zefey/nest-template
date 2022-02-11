@@ -78,21 +78,24 @@ controller 负责处理请求和响应，不会直接和数据层接触，而是
 使用基于类的参数校验方式，并通过管道装饰器完成验证
 
 **获取 Jwt Payload**
-被 `@UseGuards(AuthGuard())` 装饰的控制器，代表需要 Jwt 校验，通过校验后，可以用 @Jwt() 注解拿到 Jwt 的 Payload
+被 `@UseGuards(AuthGuard('jwt'))` 装饰的控制器，代表需要 Jwt 校验，通过校验后，可以用 @Jwt() 注解拿到 Jwt 的 Payload
 
 ```ts
 class LoginDto {
   @IsString()
-  phone: string;
+  @ApiProperty()
+  username: string;
+
   @IsString()
+  @ApiProperty()
   password: string;
 }
 @Controller()
 export class AppController {
   ...
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @Post()
-  async getHello(@Body() body: IndexBodyDto, @Jwt() jwt: JwtPayload): Promise<any> {
+  async getHello(@Jwt() jwt: JwtPayload): Promise<any> {
     ...
     return jwt
   }
@@ -148,6 +151,10 @@ create(@Body() userDto: UserDto): Promise<User> {
   return this.userService.create(userDto);
 }
 ```
+
+### Cache
+
+缓存模块，基于 redis，且提供了一个对外的 command 方法用于执行任意 redis 命令
 
 ### 路径别名
 
