@@ -28,8 +28,12 @@ export class RedisService {
     return await this.command('GET', key);
   }
 
-  async set<T = any>(key: string, value: T) {
-    return await this.command('SET', key, value);
+  async set(key: string, value: string, ttl?: number) {
+    let config = [];
+    if (ttl) {
+      config = ['EX', ttl];
+    }
+    return await this.command('SET', key, value, ...config);
   }
 
   async exists(key: string) {
