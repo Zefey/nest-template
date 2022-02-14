@@ -1,4 +1,8 @@
-import { Module, ValidationPipe } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Module,
+  ValidationPipe,
+} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
   // APP_GUARD,
@@ -50,6 +54,11 @@ import { CacheModule } from '@modules/cache/cache.module';
       // 全局拦截器
       provide: APP_INTERCEPTOR,
       useClass: TransformInterceptor,
+    },
+    {
+      // 全局拦截器
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor,
     },
     {
       // 全局参数校验 pipe
