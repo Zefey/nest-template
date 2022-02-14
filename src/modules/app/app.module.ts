@@ -25,6 +25,8 @@ import * as _ from 'lodash';
 import { FileModule } from '@modules/file/file.module';
 // import { RolesGuard } from '@modules/auth/roles.guard';
 import { CacheModule } from '@modules/cache/cache.module';
+import { TaskModule } from '@modules/task/task.module';
+import { ScheduleModule } from '@nestjs/schedule';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -37,11 +39,13 @@ import { CacheModule } from '@modules/cache/cache.module';
         configService.get('database'),
       inject: [ConfigService],
     }),
+    ScheduleModule.forRoot(),
     AuthModule,
     UserModule,
     RequestModule,
     FileModule,
     CacheModule,
+    TaskModule,
   ],
   providers: [
     AppService,

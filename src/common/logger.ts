@@ -51,3 +51,5 @@ export const dbLogger = winston.createLogger(getWinstonConfig('DB'));
 export const logger = winston.createLogger(getWinstonConfig('DEFAULT'));
 // 系统错误日志
 export const errorLogger = winston.createLogger(getWinstonConfig('ERROR'));
+// 定时任务
+export const timeLogger = winston.createLogger(getWinstonConfig('TIME'));
