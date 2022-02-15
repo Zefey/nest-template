@@ -4,14 +4,25 @@ import { timeLogger } from '@common/logger';
 
 @Injectable()
 export class TaskService {
-  @Cron('45 * * * * *')
+  /*
+    标准的cron patterns:
+        * * * * * *
+        | | | | | |
+        | | | | | day of week
+        | | | | month
+        | | | day of month
+        | | hour
+        | minute
+        second (optional)
+  */
+  @Cron('0 0 6 * * *')
   handleCron() {
-    timeLogger.info('每分钟第 45 秒调用');
+    timeLogger.info('每天6点调用');
   }
 
-  @Interval(10000)
+  @Interval(3600000)
   handleInterval() {
-    timeLogger.info('每过10秒调用');
+    timeLogger.info('每过3600秒调用');
   }
 
   @Timeout(5000)
