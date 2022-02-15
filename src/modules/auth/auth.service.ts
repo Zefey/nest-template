@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '@modules/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import LoginDto from './dto/login.dto';
-import { ErrorException } from '@src/common/error.exception';
+import { ErrorException } from '@common/error.exception';
 import { JwtPayload } from './auth.interface';
 import { RedisService } from '@modules/cache/redis.service';
 @Injectable()

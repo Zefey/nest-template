@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as redis from 'redis';
 import { promisify } from 'util';
-import { ErrorException } from '@src/common/error.exception';
+import { ErrorException } from '@common/error.exception';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()

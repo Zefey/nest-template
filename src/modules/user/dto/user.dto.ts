@@ -1,6 +1,6 @@
 import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Role } from '@src/enums/role.enum';
+import { Role } from '@enums/role.enum';
 
 export default class UserDto {
   @IsString()

@@ -9,8 +9,8 @@
   "moduleNameMapper": {
     "@modules/(.*)": ["<rootDir>/src/modules/$1"],
     "@utils/(.*)": ["<rootDir>/src/utils/$1"],
-    "@src/(.*)": ["<rootDir>/src/$1"],
     "@common/(.*)": ["<rootDir>/src/common/$1"],
-    "@config/(.*)": ["<rootDir>/config/$1"]
+    "@config/(.*)": ["<rootDir>/config/$1"],
+    "@enums/(.*)": ["<rootDir>/enums/$1"]
   }
 }

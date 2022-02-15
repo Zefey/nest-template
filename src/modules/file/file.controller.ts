@@ -10,7 +10,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
-import { Role } from '@src/enums/role.enum';
+import { Role } from '@enums/role.enum';
 import { FileUploadDto } from './dto/upload.dto';
 import { JwtAuthGuard } from '@modules/auth/jwt.guard';
 

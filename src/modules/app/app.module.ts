@@ -20,7 +20,7 @@ import { TransformInterceptor } from '@common/transform.interceptor';
 import { AllExceptionsFilter } from '@common/exception.filter';
 import { RequestModule } from '@modules/request/request.module';
 import { AuthModule } from '@modules/auth/auth.module';
-import { ErrorException } from '@src/common/error.exception';
+import { ErrorException } from '@common/error.exception';
 import * as _ from 'lodash';
 import { FileModule } from '@modules/file/file.module';
 // import { RolesGuard } from '@modules/auth/roles.guard';
