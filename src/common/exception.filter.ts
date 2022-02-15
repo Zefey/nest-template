@@ -39,7 +39,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     } else {
       // 系统错误
       status = HttpStatus.INTERNAL_SERVER_ERROR;
-      code = 'SYSTEM_ERROR';
+      code = 500;
       msg = '系统错误';
       data = exception.message;
 

@@ -27,6 +27,7 @@ import { FileModule } from '@modules/file/file.module';
 import { CacheModule } from '@modules/cache/cache.module';
 import { TaskModule } from '@modules/task/task.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { QueneModule } from '@modules/quene/quene.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -46,6 +47,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     FileModule,
     CacheModule,
     TaskModule,
+    QueneModule,
   ],
   providers: [
     AppService,
