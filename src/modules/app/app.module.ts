@@ -28,6 +28,7 @@ import { CacheModule } from '@modules/cache/cache.module';
 import { TaskModule } from '@modules/task/task.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { QueneModule } from '@modules/quene/quene.module';
+import { SocketGateway } from '@modules/socket/socket.gateway';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -48,6 +49,7 @@ import { QueneModule } from '@modules/quene/quene.module';
     CacheModule,
     TaskModule,
     QueneModule,
+    SocketGateway,
   ],
   providers: [
     AppService,
