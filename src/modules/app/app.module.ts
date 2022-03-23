@@ -29,6 +29,7 @@ import { TaskModule } from '@modules/task/task.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { QueneModule } from '@modules/quene/quene.module';
 import { SocketGateway } from '@modules/socket/socket.gateway';
+import { HeroModule } from '@modules/grpc/hero.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -50,6 +51,7 @@ import { SocketGateway } from '@modules/socket/socket.gateway';
     TaskModule,
     QueneModule,
     SocketGateway,
+    HeroModule,
   ],
   providers: [
     AppService,

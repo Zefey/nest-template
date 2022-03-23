@@ -6,6 +6,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { RequestMiddleware } from '@common/request.middleware';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+import { grpcClientOptions } from './modules/grpc/grpc-client.options';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -33,6 +34,9 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('doc', app, document);
+
+  app.connectMicroservice(grpcClientOptions);
+  app.startAllMicroservices();
 
   await app.listen(process.env.SERVER_PORT || 3000);
 }
