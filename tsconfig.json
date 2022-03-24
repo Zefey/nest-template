@@ -24,7 +24,7 @@
       "@common/*": ["./src/common/*"],
       "@enums/*": ["./src/enums/*"],
       "@config/*": ["./config/*"],
-      "@protobuf/*": ["./protobuf/*"]
+      "@protobuf/*": ["./src/protobuf/*"]
     }
   }
 }

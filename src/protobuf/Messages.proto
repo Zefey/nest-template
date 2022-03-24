@@ -1,0 +1,13 @@
+syntax = "proto3";
+package Messages;
+
+message SendChat
+{
+  string content = 1;
+}
+
+message ReceiveChat
+{
+  int32 code = 1;
+  string content = 3;
+}

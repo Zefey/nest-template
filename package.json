@@ -123,7 +123,7 @@
         "<rootDir>/config/$1"
       ],
       "@protobuf/(.*)": [
-        "<rootDir>/protobuf/$1"
+        "<rootDir>/src/protobuf/$1"
       ]
     }
   }
