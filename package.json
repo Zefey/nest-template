@@ -104,6 +104,9 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "moduleNameMapper": {
+      "@src/(.*)": [
+        "<rootDir>/src/$1"
+      ],
       "@modules/(.*)": [
         "<rootDir>/src/modules/$1"
       ],
@@ -118,6 +121,9 @@
       ],
       "@config/(.*)": [
         "<rootDir>/config/$1"
+      ],
+      "@protobuf/(.*)": [
+        "<rootDir>/protobuf/$1"
       ]
     }
   }

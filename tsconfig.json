@@ -18,11 +18,13 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+      "@src": ["./src/*"],
       "@modules/*": ["./src/modules/*"],
       "@utils/*": ["./src/utils/*"],
       "@common/*": ["./src/common/*"],
       "@enums/*": ["./src/enums/*"],
-      "@config/*": ["./config/*"]
+      "@config/*": ["./config/*"],
+      "@protobuf/*": ["./protobuf/*"]
     }
   }
 }
