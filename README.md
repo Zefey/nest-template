@@ -136,7 +136,7 @@ throw new ErrorException(500, '登录失败');
 基于 winston 的日志功能，并用 `nest-winston` 重新实现了 NestJs 自带的日志 Service，在不方便进行依赖注入的地方，也可以直接引用 `src/common/logger` 中的方法。
 了便于日志查找，同一个请求产生的多条日志都会生成相同的日志 ID（tractID）。
 
-#### 权限控制 (RABC)
+#### 权限控制 (RBAC)
 
 RBAC（基于角色的权限控制）是企业软件常用的权限管理技术
 
