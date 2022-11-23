@@ -46,7 +46,7 @@
     "dayjs": "^1.10.7",
     "dotenv": "^8.6.0",
     "mysql2": "^2.3.3",
-    "passport": "^0.4.1",
+    "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "redis": "^3.0.2",
