@@ -17,7 +17,7 @@ import { RolesGuard } from '@modules/auth/roles.guard';
 import { JwtAuthGuard } from '@modules/auth/jwt.guard';
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -39,7 +39,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   @ApiBearerAuth()
-  findOne(@Param('id') id: string): Promise<User> {
+  findOne(@Param('id') id: number): Promise<User> {
     return this.userService.findOne(id);
   }
 
